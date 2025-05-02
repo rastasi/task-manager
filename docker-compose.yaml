@@ -1,35 +1,50 @@
 services:
-  # Laravel (PHP + Composer)
-  app:
+  api:
     build:
       context: ./apps/api
       dockerfile: Dockerfile.development
     container_name: api
+    environment:
+      DB_HOST: database
+      DB_DATABASE: laravel
+      DB_USERNAM: root
+      DB_PASSWORD: root
     volumes:
       - ./apps/api:/var/www
     depends_on:
-      - mysql
+      - database
     networks:
-      - app-network
+      - inner
 
-  # Nginx
-  nginx:
+  frontend:
+    build:
+      context: ./apps/frontend
+      dockerfile: Dockerfile.development
+    container_name: frontend
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./apps/frontend:/app
+    command: ./entrypoint.sh
+    networks:
+      - inner
+
+  edge:
     image: nginx:alpine
-    container_name: nginx
+    container_name: edge
     ports:
       - "8080:80"
     volumes:
       - ./apps/api:/var/www
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - app
+      - api
     networks:
-      - app-network
+      - inner
 
-  # MySQL
-  mysql:
+  database:
     image: mysql:8
-    container_name: mysql
+    container_name: database
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: root
@@ -38,25 +53,11 @@ services:
     volumes:
       - db-data:/var/lib/mysql
     networks:
-      - app-network
-
-  # Node.js for Vue 3 (Vite dev server)
-  frontend:
-    build:
-      context: ./apps/frontend
-      dockerfile: Dockerfile.development
-    container_name: frontend
-    ports:
-      - "5173:5173" # Vite default
-    volumes:
-      - ./apps/frontend:/app
-    command: ./entrypoint.sh
-    networks:
-      - app-network
+      - inner
 
 volumes:
   db-data:
 
 networks:
-  app-network:
+  inner:
     driver: bridge
