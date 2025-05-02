@@ -3,13 +3,16 @@
       <thead>
         <tr>
           <th class="text-left">
-            {{ t('task.key') }}
+            {{ t('task.description') }}
           </th>
           <th class="text-left">
-            {{ t('task.summary') }}
+            {{ t('task.user_id') }}
           </th>
           <th class="text-left">
-            {{ t('task.status') }}
+            {{ t('task.estimated_time') }}
+          </th>
+          <th class="text-left">
+            {{ t('task.used_time') }}
           </th>
         </tr>
       </thead>
@@ -18,9 +21,10 @@
           v-for="item in items"
           :key="item.id"
         >
-          <td>{{ item.key }}</td>
-          <td><router-link :to="`/task/${item.id}`">{{ item.summary }}</router-link></td>
-          <td>{{ item.status.name }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.user_id }}</td>
+          <td>{{ item.estimated_time }}</td>
+          <td>{{ item.used_time }}</td>
         </tr>
       </tbody>
     </v-table>

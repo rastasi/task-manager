@@ -15,8 +15,8 @@ export const useTaskStore = defineStore('task', {
     };
   },
   actions: {
-    async getTask(taskId: string) {
-      this.current = await taskApi.show(taskId);
+    async destroyTask(taskId: number) {
+      await taskApi.destroy(taskId);
     },
 
     async getTasks() {
