@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\TaskRepository;
 use Illuminate\Http\Request;
+use App\DTOs\TaskDTO;
 
 class TaskService
 {
@@ -21,8 +22,7 @@ class TaskService
 
     public function store(TaskDTO $task)
     {
-        $data = $request->only(['title', 'completed']);
-        return $this->taskRepository->create($data);
+        return $this->taskRepository->create($task);
     }
 
     public function update(int $id, TaskDTO $task)

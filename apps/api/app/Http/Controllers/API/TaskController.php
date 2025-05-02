@@ -19,18 +19,26 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = $this->taskService->index();
-        return response()->json(['tasks' => $tasks]);
+        return response()->json($tasks);
     }
 
     public function store(Request $request)
     {
-        $data = $this->taskService->store(new TaskDTO());
+        $data = $this->taskService->store(new TaskDTO(
+            description: $request->input("description"),
+            user_id: $request->input("user_id"),
+            estimated_time: $request->input("estimated_time")
+        ));
         return response()->json($data, 201);
     }
 
     public function update(Request $request, $id)
     {
-        $data = $this->taskService->update($id, new TaskDTO());
+        $data = $this->taskService->update($id, new TaskDTO(
+            description: $request->input("description"),
+            user_id: $request->input("user_id"),
+            estimated_time: $request->input("estimated_time")
+        ));
         return response()->json($data);
     }
 
