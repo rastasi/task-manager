@@ -17,10 +17,10 @@ return new class extends Migration
             $table->text('description');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
     
-            $table->unsignedInteger('estimated_time')->nullable(); // percekben például
+            $table->unsignedInteger('estimated_time')->nullable();
             $table->unsignedInteger('used_time')->default(0);
     
-            $table->timestamps(); // created_at, updated_at
+            $table->timestamps();
             $table->timestamp('completed_at')->nullable();
         });
     }

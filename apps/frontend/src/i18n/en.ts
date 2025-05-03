@@ -7,17 +7,21 @@ export const en = {
         name: 'Name',
         description: 'Description',
         public: 'Public',
+        minutes: 'minutes',
+        summary: 'Summary'
     },
     title: {
         taskIndex: 'Tasks'
     },
     task: {
         description: 'Description',
-        summary: 'Summary',
-        status: 'Status',
-        key: 'Key',
-        project: 'Project',
-        tracker: 'Tracker',
+        user: 'Assigned user',
+        estimated_time: 'Estimated time',
+        used_time: 'Used time',
+        complete: 'Complete',
+        completed_at: 'Completed at',
+        selectedTotalUsedTime: 'Total used time of selected tasks',
+        selectedTotalEstimatedTime: 'Total estimated time of selected tasks',
     },
     user: {
         email: 'E-mail',

@@ -37,7 +37,8 @@ class TaskController extends Controller
         $data = $this->taskService->update($id, new TaskDTO(
             description: $request->input("description"),
             user_id: $request->input("user_id"),
-            estimated_time: $request->input("estimated_time")
+            estimated_time: $request->input("estimated_time"),
+            completed_at: $request->input("completed_at"),
         ));
         return response()->json($data);
     }

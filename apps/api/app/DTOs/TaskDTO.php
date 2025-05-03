@@ -8,12 +8,12 @@ use App\Models\User;
 
 class TaskDTO {
   public function __construct(
-      public ?string $description,
-      public ?int $user_id,
-      public ?int $estimated_time,
-      public ?int $used_time = 0,
+      public ?string $description = null,
+      public ?int $user_id = null,
+      public ?int $estimated_time = null,
+      public ?int $used_time = null,
       public ?int $id = null,
-      public ?int $completed_at = null,
+      public ?string $completed_at = null,
       public ?UserDTO $user = null
   ) {}
 

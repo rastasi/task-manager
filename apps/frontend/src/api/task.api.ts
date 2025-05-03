@@ -11,8 +11,8 @@ const create = async (task: Partial<Task>): Promise<Task> => {
     return response.data as Task;
 }
 
-const update = async (taskId: number): Promise<Task> => {
-    const response = await api.apiCall().put(`/tasks/${taskId}`);
+const update = async (taskId: number, task: Partial<Task>): Promise<Task> => {
+    const response = await api.apiCall().put(`/tasks/${taskId}`, task);
     return response.data as Task;
 }
 

@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\TaskController;
+use App\Http\Controllers\API\TaskDoneController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('tasks')->controller(TaskController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::post('/', 'store');
-    Route::put('{id}', 'update');
-    Route::delete('{id}', 'destroy');
+Route::prefix('tasks')->group(function () {
+    Route::controller(TaskController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::put('{id}', 'update');
+        Route::delete('{id}', 'destroy');
+    });
+
+    Route::post('{taskId}/done', [TaskDoneController::class, 'store']);
 });
