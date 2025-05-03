@@ -17,4 +17,9 @@ class Task extends Model
         "used_time",
         "completed_at"
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

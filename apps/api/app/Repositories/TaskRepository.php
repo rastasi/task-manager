@@ -9,28 +9,22 @@ class TaskRepository
 {
     public function all()
     {
-        return Task::all();
+        $tasks = Task::with('user')->get();
+        return $tasks->map(function ($task) {
+            return TaskDTO::fromModel($task);
+        });
     }
 
     public function create(TaskDTO $task)
     {
-        return Task::create([
-            "description" => $task->description,
-            "user_id" => $task->user_id,
-            "estimated_time" => $task->estimated_time,
-            "used_time" => $task->used_time
-        ]);
+        $task = Task::create($task->toArray());
+        return TaskDTO::fromModel($task);
     }
 
     public function update(int $id, TaskDTO $task)
     {
         $record = Task::findOrFail($id);
-        $data = array_filter([
-            "description" => $task->description,
-            "user_id" => $task->user_id,
-            "estimated_time" => $task->estimated_time,
-            "used_time" => $task->used_time
-        ], fn($value) => !is_null($value));
+        $data = array_filter($task->toArray(), fn($value) => !is_null($value));
         $record->update($data);
         return $record;
     }
