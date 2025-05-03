@@ -33,10 +33,6 @@ export const useTaskStore = defineStore('task', {
     },
   },
   actions: {
-    async destroyTask(taskId: number) {
-      await taskApi.destroy(taskId);
-    },
-
     async getTasks() {
       const tasks = await taskApi.index();
       this.index = tasks.map(task => ({
@@ -66,6 +62,21 @@ export const useTaskStore = defineStore('task', {
     async setTaskCompleted(taskId: number): Promise<void> {
       await taskDoneApi.create(taskId);
       await this.getTasks();
-    }
+    },
+
+    async createTask(task: Partial<Task>) {
+      await taskApi.create(task);
+      await this.getTasks();
+    },
+
+    async updateTask(taskId: number, task: Partial<Task>) {
+      await taskApi.update(taskId, task);
+      await this.getTasks();
+    },
+
+    async destroyTask(taskId: number) {
+      await taskApi.destroy(taskId);
+      await this.getTasks();
+    },
   },
 });

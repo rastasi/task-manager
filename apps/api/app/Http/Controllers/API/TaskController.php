@@ -27,7 +27,8 @@ class TaskController extends Controller
         $data = $this->taskService->store(new TaskDTO(
             description: $request->input("description"),
             user_id: $request->input("user_id"),
-            estimated_time: $request->input("estimated_time")
+            estimated_time: $request->input("estimated_time"),
+            used_time: $request->input("used_time"),
         ));
         return response()->json($data, 201);
     }
@@ -38,6 +39,7 @@ class TaskController extends Controller
             description: $request->input("description"),
             user_id: $request->input("user_id"),
             estimated_time: $request->input("estimated_time"),
+            used_time: $request->input("used_time"),
             completed_at: $request->input("completed_at"),
         ));
         return response()->json($data);

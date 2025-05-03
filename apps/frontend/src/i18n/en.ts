@@ -8,7 +8,12 @@ export const en = {
         description: 'Description',
         public: 'Public',
         minutes: 'minutes',
-        summary: 'Summary'
+        summary: 'Summary',
+        edit: 'Edit',
+        delete: 'Delete',
+        confirm: 'Are you sure?',
+        cancel: 'Cancel',
+        save: 'Save',
     },
     title: {
         taskIndex: 'Tasks'
@@ -20,6 +25,8 @@ export const en = {
         used_time: 'Used time',
         complete: 'Complete',
         completed_at: 'Completed at',
+        create: 'Create task',
+        edit: 'Edit task',
         selectedTotalUsedTime: 'Total used time of selected tasks',
         selectedTotalEstimatedTime: 'Total estimated time of selected tasks',
     },

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\TaskController;
 use App\Http\Controllers\API\TaskDoneController;
+use App\Http\Controllers\API\UserController;
 
 
 /*
@@ -30,4 +31,10 @@ Route::prefix('tasks')->group(function () {
     });
 
     Route::post('{taskId}/done', [TaskDoneController::class, 'store']);
+});
+
+Route::prefix('users')->group(function () {
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/', 'index');
+    });
 });

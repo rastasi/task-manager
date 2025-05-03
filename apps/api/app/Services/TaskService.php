@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\TaskRepository;
-use Illuminate\Http\Request;
 use App\DTOs\TaskDTO;
 
 class TaskService
