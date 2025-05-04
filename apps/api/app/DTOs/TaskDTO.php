@@ -3,7 +3,6 @@
 namespace App\DTOs;
 
 use App\Models\Task;
-use App\Models\User;
 
 
 class TaskDTO {

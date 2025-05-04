@@ -10,7 +10,7 @@ class TaskRepository
     public function all()
     {
         $tasks = Task::with('user')->get();
-        return $tasks->map(function ($task) {
+        return $tasks->map(function (Task $task) {
             return TaskDTO::fromModel($task);
         });
     }
