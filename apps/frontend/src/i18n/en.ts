@@ -29,6 +29,7 @@ export const en = {
         edit: 'Edit task',
         selectedTotalUsedTime: 'Total used time of selected tasks',
         selectedTotalEstimatedTime: 'Total estimated time of selected tasks',
+        bulkAction: 'Bulk actions'
     },
     user: {
         email: 'E-mail',

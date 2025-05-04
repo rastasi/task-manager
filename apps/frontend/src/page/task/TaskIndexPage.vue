@@ -31,6 +31,26 @@
             <td>{{ t('task.selectedTotalEstimatedTime') }}</td>
             <td>{{ taskStore.selectedTotalEstimatedTime }} {{ t('global.minutes') }}</td>
           </tr>
+          <tr>
+            <td>{{ t('task.bulkAction') }}</td>
+            <td>
+              <v-btn
+                size="small"
+                color="success"
+                class="me-2"
+                @click="handleSelectedComplete"
+              >
+                {{ t('task.complete') }}
+              </v-btn>
+              <v-btn
+                size="small"
+                color="error"
+                @click="handleSelectedDelete"
+              >
+                {{ t('global.delete') }}
+              </v-btn>
+            </td>
+          </tr>
         </tbody>
       </v-table>
     </div>
@@ -94,9 +114,22 @@ const handleComplete = (task: Task) => {
   taskStore.setCompleted(task.id);
 };
 
+const handleSelectedComplete = () => {
+  if (confirm(t('global.confirm'))) {
+    taskStore.setCompletedSelected();
+  }
+};
+
+
 const handleDelete = (task: Task) => {
   if (confirm(t('global.confirm'))) {
     taskStore.destroy(task.id);
+  }
+};
+
+const handleSelectedDelete = () => {
+  if (confirm(t('global.confirm'))) {
+    taskStore.destroySelected();
   }
 };
 </script>

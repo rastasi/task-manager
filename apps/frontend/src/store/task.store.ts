@@ -62,6 +62,16 @@ export const useTaskStore = defineStore('task', {
       return this.index.find(t => t.id === taskId)?.selected ?? false;
     },
 
+    async destroySelected() {
+      const selectedTasks = this.index.filter(t => t.selected);
+      await Promise.all(selectedTasks.map(task => this.destroy(task.id)));
+    },
+
+    async setCompletedSelected() {
+      const selectedTasks = this.index.filter(t => t.selected);
+      await Promise.all(selectedTasks.map(task => this.setCompleted(task.id)));
+    },
+
     async setCompleted(taskId: number): Promise<void> {
       await taskDoneApi.create(taskId);
       await this.getAll();
