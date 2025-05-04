@@ -18,42 +18,7 @@
       :onDelete="handleDelete"
       :onEdit="handleEdit"
     />
-    <div v-if="taskStore.numOfSelected > 0" class="mt-6">
-      <h3 class="text-h6 mb-2">{{ t('global.summary') }}</h3>
-
-      <v-table density="compact" class="mb-4">
-        <tbody>
-          <tr>
-            <td>{{ t('task.selectedTotalUsedTime') }}</td>
-            <td>{{ taskStore.selectedTotalUsedTime }} {{ t('global.minutes') }}</td>
-          </tr>
-          <tr>
-            <td>{{ t('task.selectedTotalEstimatedTime') }}</td>
-            <td>{{ taskStore.selectedTotalEstimatedTime }} {{ t('global.minutes') }}</td>
-          </tr>
-          <tr>
-            <td>{{ t('task.bulkAction') }}</td>
-            <td>
-              <v-btn
-                size="small"
-                color="success"
-                class="me-2"
-                @click="handleSelectedComplete"
-              >
-                {{ t('task.complete') }}
-              </v-btn>
-              <v-btn
-                size="small"
-                color="error"
-                @click="handleSelectedDelete"
-              >
-                {{ t('global.delete') }}
-              </v-btn>
-            </td>
-          </tr>
-        </tbody>
-      </v-table>
-    </div>
+    <task-table-summary  v-if="taskStore.numOfSelected > 0" />
   </div>
 </template>
 
@@ -66,6 +31,7 @@ import TaskTable from '@/component/TaskTable.vue';
 import { Task } from '@/lib/interfaces/task.interface';
 import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+import TaskTableSummary from '@/component/TaskTableSummary.vue';
 
 const { t } = useI18n();
 
@@ -114,22 +80,10 @@ const handleComplete = (task: Task) => {
   taskStore.setCompleted(task.id);
 };
 
-const handleSelectedComplete = () => {
-  if (confirm(t('global.confirm'))) {
-    taskStore.setCompletedSelected();
-  }
-};
-
-
 const handleDelete = (task: Task) => {
   if (confirm(t('global.confirm'))) {
     taskStore.destroy(task.id);
   }
 };
 
-const handleSelectedDelete = () => {
-  if (confirm(t('global.confirm'))) {
-    taskStore.destroySelected();
-  }
-};
 </script>

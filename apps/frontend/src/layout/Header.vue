@@ -20,7 +20,7 @@ interface Link {
 
 const links: Link[] = [
   {
-    text: 'Tasks',
+    text: t('title.taskIndex'),
     key: 'tasks',
     to: '/'
   },
