@@ -5,14 +5,14 @@ import taskDoneApi from '@/api/taskDone.api';
 
 
 interface TaskStore {
-  current: Task | null;
+  current: Partial<Task>;
   index: Task[];
 }
 
 export const useTaskStore = defineStore('task', {
   state: (): TaskStore => {
     return {
-      current: null,
+      current: {},
       index: [],
     };
   },
@@ -33,7 +33,10 @@ export const useTaskStore = defineStore('task', {
     },
   },
   actions: {
-    async getTasks() {
+    setCurrent(task: Partial<Task>) {
+      this.current = task;
+    },
+    async getAll() {
       const tasks = await taskApi.index();
       this.index = tasks.map(task => ({
         ...task,
@@ -41,14 +44,14 @@ export const useTaskStore = defineStore('task', {
       }));
     },
 
-    selectTask(taskId: number) {
+    select(taskId: number) {
       const task = this.index.find(t => t.id === taskId);
       if (task) {
         task.selected = true;
       }
     },
 
-    deselectTask(taskId: number) {
+    deselect(taskId: number) {
       const task = this.index.find(t => t.id === taskId);
       if (task) {
         task.selected = false;
@@ -59,24 +62,24 @@ export const useTaskStore = defineStore('task', {
       return this.index.find(t => t.id === taskId)?.selected ?? false;
     },
 
-    async setTaskCompleted(taskId: number): Promise<void> {
+    async setCompleted(taskId: number): Promise<void> {
       await taskDoneApi.create(taskId);
-      await this.getTasks();
+      await this.getAll();
     },
 
-    async createTask(task: Partial<Task>) {
+    async create(task: Partial<Task>) {
       await taskApi.create(task);
-      await this.getTasks();
+      await this.getAll();
     },
 
-    async updateTask(taskId: number, task: Partial<Task>) {
+    async update(taskId: number, task: Partial<Task>) {
       await taskApi.update(taskId, task);
-      await this.getTasks();
+      await this.getAll();
     },
 
-    async destroyTask(taskId: number) {
+    async destroy(taskId: number) {
       await taskApi.destroy(taskId);
-      await this.getTasks();
+      await this.getAll();
     },
   },
 });

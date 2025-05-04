@@ -15,9 +15,8 @@ export const useUserStore = defineStore('user', {
     };
   },
   actions: {
-    async getUsers() {
-      const tasks = await userApi.index();
-      this.index = tasks;
+    async getAll() {
+      this.index = await userApi.index();
     },
   },
 });

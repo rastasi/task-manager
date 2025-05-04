@@ -1,6 +1,9 @@
 <template>
   <div>
-    <task-form-dialog v-model="showFormDialog" :task="formTask" :users="userStore.index" @save="handleFormSubmit" />
+    <task-form-dialog
+        :users="userStore.index"
+        :onSubmit="handleFormDialogSubmit"
+      />
     <v-row class="mb-4" justify="end">
       <v-col cols="auto">
         <v-btn color="primary" @click="handleCreate">
@@ -8,8 +11,13 @@
         </v-btn>
       </v-col>
     </v-row>
-    <task-table :items="taskStore.index" :onSelect="handleSelect" :onComplete="handleComplete" :onDelete="handleDelete"
-      :onEdit="handleEdit" />
+    <task-table
+      :items="taskStore.index"
+      :onSelect="handleSelect"
+      :onComplete="handleComplete"
+      :onDelete="handleDelete"
+      :onEdit="handleEdit"
+    />
     <div v-if="taskStore.numOfSelected > 0" class="mt-6">
       <h3 class="text-h6 mb-2">{{ t('global.summary') }}</h3>
 
@@ -33,64 +41,62 @@
 import TaskFormDialog from '@/component/TaskFormDialog.vue';
 import { useTaskStore } from '@/store/task.store';
 import { useUserStore } from '@/store/user.store';
+import { useTaskFormDialogStore } from '@/store/taskFormDialog.store';
 import TaskTable from '@/component/TaskTable.vue';
 import { Task } from '@/lib/interfaces/task.interface';
 import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { ref } from 'vue';
-import { User } from '@/lib/interfaces/user.interface';
 
 const { t } = useI18n();
 
 const taskStore = useTaskStore();
 const userStore = useUserStore();
+const taskFormDialogStore = useTaskFormDialogStore();
 
 onMounted(async () => {
-  await taskStore.getTasks();
-  await userStore.getUsers();
+  await taskStore.getAll();
+  await userStore.getAll();
 });
 
-const showFormDialog = ref(false);
-const formTask = ref<Task | null>(null);
 
 const handleCreate = () => {
-  formTask.value = {
+  taskStore.setCurrent({
     description: '',
     used_time: 0,
     estimated_time: 0,
     user_id: undefined,
-  };
-  showFormDialog.value = true;
+  });
+  taskFormDialogStore.open();
 };
 
 const handleEdit = (task: Task) => {
-  formTask.value = task;
-  showFormDialog.value = true;
+  taskStore.setCurrent(task)
+  taskFormDialogStore.open();
 };
 
-const handleFormSubmit = async (taskData: Partial<Task>) => {
-  if (taskData.id) {
-    await taskStore.updateTask(taskData.id, taskData as Task);
+const handleFormDialogSubmit = async () => {
+  if (taskStore.current?.id) {
+    await taskStore.update(taskStore.current.id, taskStore.current);
   } else {
-    await taskStore.createTask(taskData as Omit<Task, 'id' | 'selected'>);
+    await taskStore.create(taskStore.current as Omit<Task, 'id' | 'selected'>);
   }
 };
 
-const handleSelect = (task: TaskTable, selected: boolean) => {
+const handleSelect = (task: Task, selected: boolean) => {
   if (selected) {
-    taskStore.selectTask(task.id);
+    taskStore.select(task.id);
   } else {
-    taskStore.deselectTask(task.id);
+    taskStore.deselect(task.id);
   }
 };
 
-const handleComplete = (task: TaskTable) => {
-  taskStore.setTaskCompleted(task.id);
+const handleComplete = (task: Task) => {
+  taskStore.setCompleted(task.id);
 };
 
-const handleDelete = (task: TaskTable) => {
+const handleDelete = (task: Task) => {
   if (confirm(t('global.confirm'))) {
-    taskStore.destroyTask(task.id);
+    taskStore.destroy(task.id);
   }
 };
 </script>
