@@ -48,9 +48,9 @@ onMounted(async () => {
 const handleCreate = () => {
   taskStore.setCurrent({
     description: '',
-    used_time: 0,
-    estimated_time: 0,
-    user_id: undefined,
+    usedTime: 0,
+    estimatedTime: 0,
+    userId: undefined,
   });
   taskFormDialogStore.open();
 };

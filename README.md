@@ -22,10 +22,16 @@ make dev
 make migrate
 ```
 
-3. Példányadatok feltöltése az adatbázisba:
+3. Példányadatok feltöltése az adatbázisba (biztonságosan többször is futtatható):
 
 ```
 make seed
+```
+
+4. Ezután az olal megtekinthető az alábbi címen:
+
+```
+http://localhost:8080
 ```
 
 ## Alkalmazott technológiák
@@ -45,7 +51,8 @@ A backend oldal a klasszikus **Model → Repository → Service → Controller**
 - **Model**: Az Eloquent modellek az adatbázis táblákhoz kötődnek.
 - **Repository**: Az adatelérést absztrahálja, leválasztva a modellekről.
 - **Service**: Az üzleti logika itt kap helyet.
-- **Controller**: HTTP kommunikácós réteg.
+- **Controller**: HTTP kommunikácós réteg ami a service-eket hívja.
+- **Serializer**: a HTTP kommunikációs réteg kimenetét formázó megjelenítési réteg.
 
 A rétegek között DTO osztályok közlekednek.
 
@@ -63,6 +70,7 @@ A frontend oldalon az **API → Store → Page → Component** láncolat valósu
 
 - Igyekeztem a Laravel által generált felesleges skeleton fájlokat eltávolítani, hogy a kód tiszta és célorientált maradjon.
 - A jelenlegi megoldás kliensoldali szűrést alkalmaz. A szűrést és lapozást ugyanakkor át lehet helyezni szerveroldalra is – ennek ellenére a mostani forma is reményeim szerint jól reprezentálja az általam képviselt elveket.
+- A futtatási környezet nem production-ready, a `make dev` parancs (mint a neve is súgalja) kizárólag fejlesztési környezet felállítására alkalmas.
 
 ## Szerző
 

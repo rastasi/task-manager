@@ -20,13 +20,13 @@ export const useTaskStore = defineStore('task', {
     selectedTotalUsedTime(state): number {
       return state.index
         .filter(task => task.selected)
-        .reduce((sum, task) => sum + (task.used_time ?? 0), 0);
+        .reduce((sum, task) => sum + (task.usedTime ?? 0), 0);
     },
 
     selectedTotalEstimatedTime(state): number {
       return state.index
         .filter(task => task.selected)
-        .reduce((sum, task) => sum + (task.estimated_time ?? 0), 0);
+        .reduce((sum, task) => sum + (task.estimatedTime ?? 0), 0);
     },
     numOfSelected(state): number {
       return state.index.filter(task => task.selected).length;

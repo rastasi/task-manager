@@ -2,11 +2,11 @@ import { User } from "./user.interface";
 
 export interface Task {
     description: string;
-    user_id: number;
+    userId: number;
     user?: User;
-    estimated_time: number;
-    used_time: number;
+    estimatedTime: number;
+    usedTime: number;
     id: number;
-    completed_at: string;
+    completedAt: string;
     selected: boolean;
 }

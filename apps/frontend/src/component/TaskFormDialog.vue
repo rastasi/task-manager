@@ -14,7 +14,7 @@
           ></v-text-field>
 
           <v-select
-            v-model="taskStore.current.user_id"
+            v-model="taskStore.current.userId"
             :label="t('task.user')"
             :items="users"
             item-value="id"
@@ -24,8 +24,8 @@
           ></v-select>
 
           <v-text-field
-            v-model.number="taskStore.current.estimated_time"
-            :label="t('task.estimated_time')"
+            v-model.number="taskStore.current.estimatedTime"
+            :label="t('task.estimatedTime')"
             type="number"
             min="0"
             suffix="min"
@@ -33,8 +33,8 @@
           ></v-text-field>
 
           <v-text-field
-            v-model.number="taskStore.current.used_time"
-            :label="t('task.used_time')"
+            v-model.number="taskStore.current.usedTime"
+            :label="t('task.usedTime')"
             type="number"
             min="0"
             suffix="min"

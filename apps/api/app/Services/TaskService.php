@@ -14,23 +14,23 @@ class TaskService
         $this->taskRepository = $taskRepository;
     }
 
-    public function index()
+    public function index(): array
     {
         return $this->taskRepository->all();
     }
 
-    public function store(TaskDTO $task)
+    public function store(TaskDTO $task): TaskDTO
     {
         return $this->taskRepository->create($task);
     }
 
-    public function update(int $id, TaskDTO $task)
+    public function update(int $id, TaskDTO $task): TaskDTO
     {
         return $this->taskRepository->update($id, $task);
     }
 
-    public function destroy(int $id)
+    public function destroy(int $id): bool
     {
-        $this->taskRepository->destroy($id);
+        return $this->taskRepository->destroy($id);
     }
 }

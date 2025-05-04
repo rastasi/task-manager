@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Serializers\UserSerializer;
 use App\Services\UserService;
 
 class UserController extends Controller
@@ -17,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->userService->index();
-        return response()->json($users);
+        return response()->json(UserSerializer::serializeMany($users));
     }
 
 }

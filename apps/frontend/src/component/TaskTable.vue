@@ -13,9 +13,9 @@
           <th class="text-left">✔</th>
           <th class="text-left">{{ t('task.description') }}</th>
           <th class="text-left">{{ t('task.user') }}</th>
-          <th class="text-left">{{ t('task.estimated_time') }}</th>
-          <th class="text-left">{{ t('task.used_time') }}</th>
-          <th class="text-left">{{ t('task.completed_at') }}</th>
+          <th class="text-left">{{ t('task.estimatedTime') }}</th>
+          <th class="text-left">{{ t('task.usedTime') }}</th>
+          <th class="text-left">{{ t('task.completedAt') }}</th>
           <th class="text-left">{{ t('global.edit') }}</th>
           <th class="text-left">{{ t('global.delete') }}</th>
         </tr>
@@ -27,11 +27,11 @@
           </td>
           <td>{{ item.description }}</td>
           <td>{{ item.user?.name }}</td>
-          <td>{{ item.estimated_time }} {{ t('global.minutes') }}</td>
-          <td>{{ item.used_time }} {{ t('global.minutes') }}</td>
+          <td>{{ item.estimatedTime }} {{ t('global.minutes') }}</td>
+          <td>{{ item.usedTime }} {{ t('global.minutes') }}</td>
           <td>
             <v-btn
-              v-if="!item.completed_at"
+              v-if="!item.completedAt"
               @click="onComplete(item)"
               size="x-small"
               color="success"
@@ -39,7 +39,7 @@
             >
               {{ t('task.complete') }}
             </v-btn>
-            <span v-else>{{ item.completed_at }}</span>          
+            <span v-else>{{ item.completedAt }}</span>          
           </td>
           <td>
             <v-btn

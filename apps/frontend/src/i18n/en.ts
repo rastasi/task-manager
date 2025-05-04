@@ -21,10 +21,10 @@ export const en = {
     task: {
         description: 'Description',
         user: 'Assigned user',
-        estimated_time: 'Estimated time',
-        used_time: 'Used time',
+        estimatedTime: 'Estimated time',
+        usedTime: 'Used time',
         complete: 'Complete',
-        completed_at: 'Completed at',
+        completedAt: 'Completed at',
         create: 'Create task',
         edit: 'Edit task',
         selectedTotalUsedTime: 'Total used time of selected tasks',

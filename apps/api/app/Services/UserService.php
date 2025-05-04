@@ -13,7 +13,7 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    public function index()
+    public function index(): array
     {
         return $this->userRepository->all();
     }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
     
-            $table->unsignedInteger('estimated_time')->nullable();
+            $table->unsignedInteger('estimated_time')->default(0);
             $table->unsignedInteger('used_time')->default(0);
     
             $table->timestamps();

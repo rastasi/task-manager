@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\DTOs\TaskDTO;
+use App\Http\Serializers\TaskSerializer;
 use Illuminate\Http\Request;
 use App\Services\TaskService;
 
@@ -19,35 +20,35 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = $this->taskService->index();
-        return response()->json($tasks);
+        return response()->json(TaskSerializer::serializeMany($tasks));
     }
 
     public function store(Request $request)
     {
-        $data = $this->taskService->store(new TaskDTO(
+        $task = $this->taskService->store(new TaskDTO(
             description: $request->input("description"),
-            user_id: $request->input("user_id"),
-            estimated_time: $request->input("estimated_time"),
-            used_time: $request->input("used_time"),
+            user_id: $request->input("userId"),
+            estimated_time: $request->input("estimatedTime"),
+            used_time: $request->input("usedTime"),
         ));
-        return response()->json($data, 201);
+        return response()->json(TaskSerializer::serialize($task), 201);
     }
 
     public function update(Request $request, $id)
     {
-        $data = $this->taskService->update($id, new TaskDTO(
+        $task = $this->taskService->update($id, new TaskDTO(
             description: $request->input("description"),
-            user_id: $request->input("user_id"),
-            estimated_time: $request->input("estimated_time"),
-            used_time: $request->input("used_time"),
-            completed_at: $request->input("completed_at"),
+            user_id: $request->input("userId"),
+            estimated_time: $request->input("estimatedTime"),
+            used_time: $request->input("usedTime"),
+            completed_at: $request->input("completedAt"),
         ));
-        return response()->json($data);
+        return response()->json(TaskSerializer::serialize($task));
     }
 
     public function destroy($id)
     {
-        $data = $this->taskService->destroy($id);
-        return response()->json($data);
+        $success = $this->taskService->destroy($id);
+        return response()->json(["success" => $success]);
     }
 }
