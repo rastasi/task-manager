@@ -72,6 +72,12 @@ A frontend oldalon az **API → Store → Page → Component** láncolat valósu
 - A jelenlegi megoldás kliensoldali szűrést alkalmaz. A szűrést és lapozást ugyanakkor át lehet helyezni szerveroldalra is – ennek ellenére a mostani forma is reményeim szerint jól reprezentálja az általam képviselt elveket.
 - A futtatási környezet nem production-ready, a `make dev` parancs (mint a neve is súgalja) kizárólag fejlesztési környezet felállítására alkalmas.
 
+## Továbbfejlesztési lehetőségek
+- JWT alapú autentikáció
+- OpenAI alapú HTTP request és response validáció (+Swagger UI)
+- NX monorepository framework bevezetése (a mappastruktúra ennek megfelelő)
+- Production-ready futtatókörnyezethez szükséges manifesztációs fájlok
+
 ## Szerző
 
 Tasnádi Zsolt
